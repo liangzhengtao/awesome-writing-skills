@@ -1,0 +1,102 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check all skill files exist
+        run: |
+          files=(
+            "skills/博客写作/seo-blog-post.md"
+            "skills/博客写作/technical-blog.md"
+            "skills/博客写作/newsletter-writing.md"
+            "skills/文案营销/sales-copy.md"
+            "skills/文案营销/social-media-copy.md"
+            "skills/文案营销/email-marketing.md"
+            "skills/学术写作/research-abstract.md"
+            "skills/学术写作/grant-proposal.md"
+            "skills/创意写作/storytelling.md"
+            "skills/创意写作/content-rewriting.md"
+            "skills/职场写作/business-report.md"
+            "skills/职场写作/presentation-script.md"
+          )
+          missing=0
+          for f in "${files[@]}"; do
+            if [ ! -f "$f" ]; then
+              echo "MISSING: $f"
+              missing=$((missing + 1))
+            fi
+          done
+          if [ $missing -gt 0 ]; then
+            echo "$missing required file(s) missing"
+            exit 1
+          fi
+          echo "All 12 skill files present."
+
+      - name: Validate markdown structure
+        run: |
+          errors=0
+          for f in skills/**/*.md; do
+            if ! grep -q "## When to Use" "$f"; then
+              echo "MISSING '## When to Use' in: $f"
+              errors=$((errors + 1))
+            fi
+            if ! grep -q "## Writing Framework" "$f"; then
+              echo "MISSING '## Writing Framework' in: $f"
+              errors=$((errors + 1))
+            fi
+            if ! grep -q "## Templates" "$f"; then
+              echo "MISSING '## Templates' in: $f"
+              errors=$((errors + 1))
+            fi
+            if ! grep -q "## Common Mistakes" "$f"; then
+              echo "MISSING '## Common Mistakes' in: $f"
+              errors=$((errors + 1))
+            fi
+            if ! grep -q "## Before" "$f"; then
+              echo "MISSING '## Before/After' in: $f"
+              errors=$((errors + 1))
+            fi
+          done
+          if [ $errors -gt 0 ]; then
+            echo "$errors structural issue(s) found"
+            exit 1
+          fi
+          echo "All skill files pass structural validation."
+
+      - name: Check community files
+        run: |
+          for f in README.md LICENSE CONTRIBUTING.md CODE_OF_CONDUCT.md SECURITY.md CHANGELOG.md .gitignore; do
+            if [ ! -f "$f" ]; then
+              echo "MISSING: $f"
+              exit 1
+            fi
+          done
+          echo "All community files present."
+
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check for broken internal links
+        run: |
+          errors=0
+          for f in skills/**/*.md; do
+            # Check markdown links to other local files
+            grep -oP '\[.*?\]\((?!http)(.*?)\)' "$f" | while read -r match; do
+              target=$(echo "$match" | grep -oP '\((?!http)(.*?)\)' | tr -d '()')
+              if [ -n "$target" ] && [ ! -f "$target" ] && [ ! -f "$(dirname "$f")/$target" ]; then
+                echo "Broken link in $f: $target"
+              fi
+            done
+          done
+          echo "Link check complete."
