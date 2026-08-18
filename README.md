@@ -29,7 +29,7 @@ You sit down to write. The cursor blinks. Minutes pass. You write a sentence, de
 
 ## ✅ The Solution
 
-12 battle-tested AI writing skills, each a complete playbook with:
+12 tried-and-true AI writing skills, each a complete playbook with:
 
 - **When to Use** — clear triggers for when each skill applies
 - **Writing Framework** — step-by-step structure to follow
