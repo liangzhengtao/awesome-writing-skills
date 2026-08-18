@@ -22,7 +22,7 @@
 | C-Suite | Bottom line, decisions needed | Lead with conclusions, 1-2 pages max |
 | Directors | Strategic implications | Balance detail and summary |
 | Managers | Actionable details | Full context with clear recommendations |
-| Technical team | Complete data and methodology | Comprehensive, precise, detailed |
+| Technical team | Complete data and methodology | Complete, precise, detailed |
 
 ### Step 2: The Pyramid Principle
 

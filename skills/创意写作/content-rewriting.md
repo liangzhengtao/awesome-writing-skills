@@ -272,7 +272,7 @@ engage, or act — don't make the change.
 
 **Before:**
 > In today's modern digital world, it is becoming increasingly important
-> for businesses to leverage social media marketing strategies in order to
+> for businesses to use social media marketing strategies in order to
 > effectively reach their target audience and achieve their business
 > objectives. This article will discuss several key strategies that can
 > help businesses improve their social media presence.

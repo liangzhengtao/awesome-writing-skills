@@ -427,7 +427,7 @@ P.S. [Teaser, fun fact, or secondary ask]
 > **Why your first draft should be terrible** — I rewrote this issue 4 times.
 > This article explains why that's actually the point. [Read it →](url)
 >
-> **The hidden cost of "best practices"** — [Author] makes a compelling case
+> **The hidden cost of "proven patterns"** — [Author] makes a compelling case
 > that following the crowd is costing you more than you think. [Read it →](url)
 
 ### Example 4: CTA
